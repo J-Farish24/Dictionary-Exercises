@@ -12,18 +12,34 @@ codes = {'A': 'Z', 'a': 'z', 'B': 'Y', 'b': 'y', 'C': 'X', 'c': 'x', 'D': 'W', '
 
 
 
-#Open message and create encrypted message file
+
 infile = open(MESSAGE, 'r')
 outfile = open(ENCRYPTED, 'w')
-#Store message file's contents in an object
 unencrypted_message = infile.read()
-#Go through each letter of the message and write the corresponding code to the encrypted message file
+message = ''
 for character in unencrypted_message:
     if character in codes:
+        print(codes[character], end = '')
         outfile.write(codes[character])
-#Else for spaces, periods, and other symbols to be written 
+        message += codes[character]
     else:
+        print(character, end = '')
         outfile.write(character)
-#Close files
+        message+= character
 infile.close()
 outfile.close()
+
+
+
+print('\n\n\n')
+values = codes.values()
+decoder = {}
+for value in values:
+    for key in codes:
+        if codes[key] == value:
+            decoder[value] = key
+for character in message:
+    if character in decoder:
+        print(decoder[character], end = '')
+    else:
+        print(character, end = '')
